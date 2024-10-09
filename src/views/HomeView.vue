@@ -1,19 +1,26 @@
 <script setup lang="ts">
-import { MainButton, useWebAppPopup } from 'vue-tg';
-import { useConnect, useChainId } from '@wagmi/vue';
+import { MainButton, useWebAppPopup } from "vue-tg";
+import { useConnect, useChainId, useAccount } from "@wagmi/vue";
+import { signMessage } from "@wagmi/vue/actions";
+import { config } from "@/wagmi";
 
 const chainId = useChainId();
 
 const { showAlert } = useWebAppPopup();
 
 const { connectors, connect } = useConnect();
+const { address, isConnected } = useAccount();
+
+const sign = async () => {
+  return signMessage(config, { message: "Hello!" });
+};
 </script>
 
 <template>
   <div class="greetings">
     <h1 class="green">Hello telegram!</h1>
     <h3>You have successfully joined the project</h3>
-    <div class="btns">
+    <div v-if="!isConnected" class="btns">
       <button
         v-for="connector in connectors"
         @click="connect({ connector, chainId })"
@@ -22,12 +29,24 @@ const { connectors, connect } = useConnect();
         {{ connector.name }}
       </button>
     </div>
+    <div v-else class="sign-block">
+      <span class="green">{{ address }}</span>
+      <button @click="sign" class="btn">Sign Message</button>
+    </div>
 
     <MainButton text="Hello" @click="() => showAlert('Hello!')" />
   </div>
 </template>
 
 <style scoped>
+.sign-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.addr {
+  color: #0b63f6;
+}
 .btns {
   display: flex;
   align-items: center;
@@ -38,7 +57,7 @@ const { connectors, connect } = useConnect();
   border-radius: 10px;
   color: white;
   transition: 0.2s linear;
-  background: #0b63f6;
+  background: hsla(160, 100%, 37%, 1);
   padding: 8px 24px;
 }
 h1 {

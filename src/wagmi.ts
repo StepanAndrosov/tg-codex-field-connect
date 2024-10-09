@@ -8,7 +8,7 @@ export const config = createConfig({
         codexFieldWallet({
             projectId: '68e316d8d77888d08e5fe7730105953b',
             debug: false,
-            returnUrl: "https://415d-1-53-156-140.ngrok-free.app",
+            returnUrl: "https://tg-codex-field-connect.vercel.app/",
         }),
     ],
     storage: createStorage({ storage: localStorage, key: 'vite-vue' }),
