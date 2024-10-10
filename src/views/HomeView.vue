@@ -3,7 +3,7 @@ import { MainButton, useWebAppPopup } from "vue-tg";
 import { useConnect, useChainId, useAccount, useDisconnect } from "@wagmi/vue";
 import { signMessage } from "@wagmi/vue/actions";
 import { config } from "@/wagmi";
-import { connectWallet } from "@/composables/useConnectUXUY";
+import { connectUXUY, disconnectUXUY } from "@/composables/useConnectUXUY";
 import { useUXUYStore } from "@/stores/uxuy";
 
 const chainId = useChainId();
@@ -38,18 +38,17 @@ const sign = async () => {
     <div v-else class="sign-block">
       <span class="green addr">{{ address }}</span>
       <button @click="sign" class="btn">Sign Message</button>
+      <button class="btn red" @click="() => disconnect()">Disconnect</button>
     </div>
-    <button v-if="!useUXUYStore().uxuyAccount" @click="connectWallet" class="btn">
+    <button v-if="!useUXUYStore().uxuyAccount" @click="connectUXUY" class="btn">
       UXUY
     </button>
     <div v-if="useUXUYStore().uxuyAccount" class="sign-block">
-      <div>UXUY status: <span class="green">connected</span></div>
-      <span class="green addr"> UXUY acc: {{ useUXUYStore().uxuyAccount }} </span>
+      <div>uxuy status: <span class="green">connected</span></div>
+      <span class="green addr"> uxuy acc: {{ useUXUYStore().uxuyAccount }} </span>
+      <button class="btn red" @click="disconnectUXUY">Disconnect</button>
     </div>
 
-    <button v-if="isConnected" class="btn red" @click="() => disconnect()">
-      Disconnect
-    </button>
     <MainButton text="Hello" @click="() => showAlert('Hello!')" />
   </div>
 </template>

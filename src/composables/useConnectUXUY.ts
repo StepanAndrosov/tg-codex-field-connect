@@ -3,7 +3,7 @@ import { WalletTgSdk } from '@uxuycom/web3-tg-sdk';
 
 const { ethereum } = new WalletTgSdk();
 
-export async function connectWallet() {
+export async function connectUXUY() {
     useUXUYStore().setLoading(true)
     try {
         const accounts = await ethereum.request({ method: 'eth_requestAccounts' });
@@ -36,5 +36,16 @@ export async function getAccounts() {
         return accounts[0];
     } catch (error) {
         console.error('Failed to get address:', error);
+    }
+}
+
+export async function disconnectUXUY() {
+    try {
+        ethereum.disconnect();
+        console.log('Current address:', '');
+    } catch (error) {
+        console.error('Failed to get address:', error);
+    } finally {
+        useUXUYStore().setAccount('')
     }
 }
