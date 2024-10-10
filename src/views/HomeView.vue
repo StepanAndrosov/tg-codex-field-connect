@@ -9,7 +9,7 @@ const chainId = useChainId();
 const { showAlert } = useWebAppPopup();
 
 const { connectors, connect } = useConnect();
-const { address, isConnected } = useAccount();
+const { address, isConnected, status } = useAccount();
 const { disconnect } = useDisconnect();
 
 const sign = async () => {
@@ -21,6 +21,9 @@ const sign = async () => {
   <div class="greetings">
     <h1 class="green">Hello telegram!</h1>
     <h3>You have successfully joined the project</h3>
+    <div>
+      status: <span class="green">{{ status }}</span>
+    </div>
     <div v-if="!isConnected" class="btns">
       <button
         v-for="connector in connectors"

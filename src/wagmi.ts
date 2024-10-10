@@ -1,9 +1,9 @@
 import { http, createConfig, createStorage } from '@wagmi/vue'
-import { bscTestnet } from '@wagmi/vue/chains'
+import { mainnet } from '@wagmi/vue/chains'
 import { codexFieldWallet } from "codexfield-wallet-connector";
 
 export const config = createConfig({
-    chains: [bscTestnet],
+    chains: [mainnet],
     connectors: [
         codexFieldWallet({
             projectId: '68e316d8d77888d08e5fe7730105953b',
@@ -13,7 +13,7 @@ export const config = createConfig({
     ],
     storage: createStorage({ storage: localStorage, key: 'vite-vue' }),
     transports: {
-        [bscTestnet.id]: http(),
+        [mainnet.id]: http(),
     },
 })
 
