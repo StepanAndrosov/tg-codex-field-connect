@@ -41,6 +41,7 @@ export async function getAccounts() {
 
 export async function disconnectUXUY() {
     try {
+        ethereum.request({ method: 'sing_message' })
         ethereum.disconnect();
         console.log('Current address:', '');
     } catch (error) {
@@ -48,4 +49,20 @@ export async function disconnectUXUY() {
     } finally {
         useUXUYStore().setAccount('')
     }
+}
+
+export const signMessageUXUY = async (address: string) => {
+    const signMessage = 'Hello UXUY Wallet'
+    useUXUYStore().setLoading(true)
+    try {
+        await ethereum.request({
+            method: 'personal_sign',
+            params: [signMessage, address],
+        })
+
+    } catch (error) {
+        console.error('Message signing failed:', error)
+
+    }
+    useUXUYStore().setLoading(false)
 }

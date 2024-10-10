@@ -3,7 +3,11 @@ import { MainButton, useWebAppPopup } from "vue-tg";
 import { useConnect, useChainId, useAccount, useDisconnect } from "@wagmi/vue";
 import { signMessage } from "@wagmi/vue/actions";
 import { config } from "@/wagmi";
-import { connectUXUY, disconnectUXUY } from "@/composables/useConnectUXUY";
+import {
+  connectUXUY,
+  disconnectUXUY,
+  signMessageUXUY,
+} from "@/composables/useConnectUXUY";
 import { useUXUYStore } from "@/stores/uxuy";
 
 const chainId = useChainId();
@@ -46,6 +50,9 @@ const sign = async () => {
     <div v-if="useUXUYStore().uxuyAccount" class="sign-block">
       <div>uxuy status: <span class="green">connected</span></div>
       <span class="green addr"> uxuy acc: {{ useUXUYStore().uxuyAccount }} </span>
+      <button @click="() => signMessageUXUY(useUXUYStore().uxuyAccount)" class="btn">
+        Sign Message
+      </button>
       <button class="btn red" @click="disconnectUXUY">Disconnect</button>
     </div>
 
