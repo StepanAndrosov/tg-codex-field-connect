@@ -56,6 +56,7 @@ const sign = async () => {
 
 <style scoped>
 .sign-block {
+  margin-top: 14px;
   display: flex;
   flex-direction: column;
   gap: 4px;
