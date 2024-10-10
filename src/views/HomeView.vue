@@ -39,9 +39,11 @@ const sign = async () => {
       <span class="green addr">{{ address }}</span>
       <button @click="sign" class="btn">Sign Message</button>
     </div>
-    <button @click="connectWallet">UXUY</button>
+    <button v-if="!useUXUYStore().uxuyAccount" @click="connectWallet" class="btn">
+      UXUY
+    </button>
     <div v-if="useUXUYStore().uxuyAccount" class="sign-block">
-      <span class="green addr">{{ useUXUYStore().uxuyAccount }}</span>
+      <span class="green addr"> UXUY acc: {{ useUXUYStore().uxuyAccount }} </span>
     </div>
 
     <button v-if="isConnected" class="btn red" @click="() => disconnect()">
