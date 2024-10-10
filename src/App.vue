@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import { RouterView } from 'vue-router';
+import { RouterView } from "vue-router";
 </script>
 
 <template>
   <header>
-    <img
-      alt="Vue logo"
-      class="logo"
-      src="@/assets/logo.svg"
-      width="95"
-      height="95"
-    />
+    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="64" height="64" />
   </header>
 
   <RouterView />
@@ -57,10 +51,6 @@ nav a:first-of-type {
     display: flex;
     place-items: center;
     padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
   }
 
   header .wrapper {

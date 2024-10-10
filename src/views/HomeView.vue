@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { MainButton, useWebAppPopup } from "vue-tg";
-import { useConnect, useChainId, useAccount } from "@wagmi/vue";
+import { useConnect, useChainId, useAccount, useDisconnect } from "@wagmi/vue";
 import { signMessage } from "@wagmi/vue/actions";
 import { config } from "@/wagmi";
 
@@ -10,6 +10,7 @@ const { showAlert } = useWebAppPopup();
 
 const { connectors, connect } = useConnect();
 const { address, isConnected } = useAccount();
+const { disconnect } = useDisconnect();
 
 const sign = async () => {
   return signMessage(config, { message: "Hello!" });
@@ -30,10 +31,13 @@ const sign = async () => {
       </button>
     </div>
     <div v-else class="sign-block">
-      <span class="green">{{ address }}</span>
+      <span class="green addr">{{ address }}</span>
       <button @click="sign" class="btn">Sign Message</button>
     </div>
 
+    <button v-if="isConnected" class="btn red" @click="() => disconnect()">
+      Disconnect
+    </button>
     <MainButton text="Hello" @click="() => showAlert('Hello!')" />
   </div>
 </template>
@@ -45,7 +49,8 @@ const sign = async () => {
   gap: 4px;
 }
 .addr {
-  color: #0b63f6;
+  font-size: 12px;
+  text-align: center;
 }
 .btns {
   display: flex;
@@ -59,6 +64,9 @@ const sign = async () => {
   transition: 0.2s linear;
   background: hsla(160, 100%, 37%, 1);
   padding: 8px 24px;
+}
+.red {
+  background: rgb(211, 40, 6);
 }
 h1 {
   font-weight: 500;
@@ -77,6 +85,9 @@ h3 {
   }
   h3 {
     font-size: 1.2rem;
+  }
+  .addr {
+    font-size: 14px;
   }
 }
 
