@@ -43,6 +43,7 @@ const sign = async () => {
       UXUY
     </button>
     <div v-if="useUXUYStore().uxuyAccount" class="sign-block">
+      <div>UXUY status: <span class="green">connected</span></div>
       <span class="green addr"> UXUY acc: {{ useUXUYStore().uxuyAccount }} </span>
     </div>
 
